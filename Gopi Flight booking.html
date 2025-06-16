@@ -1,0 +1,224 @@
+<!DOCTYPE htnl>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .flight-booking,
+        .book-ticket,
+        .cancel-booking,
+        .view-bookings {
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #one{
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        #view-booking-list {
+            margin-top: 20px;
+        }
+
+        .booking {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .booking:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Flight Ticket Booking </h1>
+    <p id="one">By Gopinath N</p>
+    <div class="container">
+        <div class="flight-booking">
+            <h2>Add Flights</h2>
+            <form id="add-flight-form">
+                <label for="Flight Number">Flight Number:</label>
+                <input type="text" id="f-num" required>
+                <label for="from">From :</label>
+                <input type="text" id="from" required>
+                <label for="to">To :</label>
+                <input type="text" id="to" required>
+                <label for="date">Date :</label>
+                <input type="date" id="date" required>
+                <label for="time">Tmie :</label>
+                <input type="time" id="time" required>
+                <button id="add-flight-btn">Add Flight</button>
+            </form>
+        </div>
+        <div class="book-ticket">
+            <h2>Book Tickets</h2>
+            <form id="book-ticket-form">
+                <label for="flightnum">Flight Number:</label>
+                <input type="text" id="flightnum" required>
+                <label for="personname">Passenger Name:</label>
+                <input type="text" id="passenger" required>
+                <button id="book-ticket-btn">Book Ticket</button>
+            </form>
+        </div>
+        <div class="cancel-booking">
+            <h2>Cancel Booking</h2>
+            <form id="cancel-booking-form">
+                <label for="cancelbooking">Booking ID:</label>
+                <input type="text" id="booking-id" required>
+                <button id="cancell-booking-btm">Cancel Booking</button>
+            </form>
+        </div>
+        <div class="view-booking">
+            <h2>View Booking</h2>
+            <form id="view-booking-form">
+                <button id="view">View Booking</button>
+                <div id="view-booking-list"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //Flight adding function
+        document.getElementById('add-flight-btn').addEventListener(('click'), (e) => {
+            e.preventDefault();
+            const flightnumber = document.getElementById('f-num').value;
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            addflight(flightnumber, from, to, date, time);
+            alert('Flight added successfully!');
+        });
+        let flights = [];
+        function addflight(flightnumber, from, to, date, time) {
+            flights.push({
+                flightnumber,
+                from,
+                to,
+                date,
+                time
+            });
+        }
+
+        //Flight bookng function
+        document.getElementById('book-ticket-btn').addEventListener(('click'), (e) => {
+            e.preventDefault();
+            const flightnumber = document.getElementById('flightnum').value;
+            const pessengername = document.getElementById('passenger').value;
+            bookingticket(flightnumber, pessengername);
+        });
+        let bookings = [];
+        function bookingticket(flightnumber, pessengername) {
+            const flight = flights.find(flights => flights.flightnumber === flightnumber);
+            if (flight) {
+                const bookingid = Math.floor(Math.random() * 1000000);
+                bookings.push({
+                    bookingid,
+                    flightnumber,
+                    pessengername
+                });
+                alert(`Ticket booked successfully! Your booking ID is ${bookingid}.`);
+            } else {
+                alert('Flight not found!');
+            }
+        };
+        //Flight cancel function
+        document.getElementById('cancell-booking-btm').addEventListener(('click'), (e) => {
+            e.preventDefault();
+            const bookingid = document.getElementById('booking-id').value;
+            cancelbooking(bookingid);
+        })
+        function cancelbooking(bookingid) {
+            const bookingindex = bookings.findIndex(bookings => bookings.bookingid === parseInt(bookingid));
+            if (bookingindex !== -1) {
+                bookings.splice(bookingindex, 1);
+                alert('Booking cancelled successfully!');
+            } else {
+                alert('Booking not found!');
+            }
+        };
+        //View booking function
+        document.getElementById('view').addEventListener(('click'), (e) => {
+            e.preventDefault();
+            viewbookings();
+        });
+
+        function viewbookings() {
+            const bookinglist = document.getElementById('view-booking-list');
+            bookinglist.innerHTML = "";
+            bookings.forEach(bookings => {
+                const flight = flights.find(flights => flights.flightnumber === bookings.flightnumber);
+                const bookinghtml = `
+                <div class="booking">
+                    <p>Booking ID: ${bookings.bookingid}</p>
+                    <p>Flight Number: ${bookings.flightnumber} </p>
+                    <p>Passenger Name: ${bookings.pessengername} </p>
+                    <p>From: ${flight.from} </p>
+                    <p>To: ${flight.to} </p>
+                    <p>Date: ${flight.date} </p>
+                    <p>Time: ${flight.time} </p>
+                    </div>
+                    `;
+                bookinglist.insertAdjacentHTML("beforeend", bookinghtml);
+            });
+        }
+    </script>
+</body>
+
+</html>
