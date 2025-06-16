@@ -1,0 +1,60 @@
+<!DOCTYPE htnl>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Flight Ticket Booking </h1>
+    <p id="one">By Gopinath N</p>
+    <div class="container">
+        <div class="flight-booking">
+            <h2>Add Flights</h2>
+            <form id="add-flight-form">
+                <label for="Flight Number">Flight Number:</label>
+                <input type="text" id="f-num" required>
+                <label for="from">From :</label>
+                <input type="text" id="from" required>
+                <label for="to">To :</label>
+                <input type="text" id="to" required>
+                <label for="date">Date :</label>
+                <input type="date" id="date" required>
+                <label for="time">Tmie :</label>
+                <input type="time" id="time" required>
+                <button id="add-flight-btn">Add Flight</button>
+            </form>
+        </div>
+        <div class="book-ticket">
+            <h2>Book Tickets</h2>
+            <form id="book-ticket-form">
+                <label for="flightnum">Flight Number:</label>
+                <input type="text" id="flightnum" required>
+                <label for="personname">Passenger Name:</label>
+                <input type="text" id="passenger" required>
+                <button id="book-ticket-btn">Book Ticket</button>
+            </form>
+        </div>
+        <div class="cancel-booking">
+            <h2>Cancel Booking</h2>
+            <form id="cancel-booking-form">
+                <label for="cancelbooking">Booking ID:</label>
+                <input type="text" id="booking-id" required>
+                <button id="cancell-booking-btm">Cancel Booking</button>
+            </form>
+        </div>
+        <div class="view-booking">
+            <h2>View Booking</h2>
+            <form id="view-booking-form">
+                <button id="view">View Booking</button>
+                <div id="view-booking-list"></div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
